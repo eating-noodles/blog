@@ -1,0 +1,57 @@
+[1mdiff --git a/_config.yml b/_config.yml[m
+[1mindex fb134cf..49f807c 100644[m
+[1m--- a/_config.yml[m
+[1m+++ b/_config.yml[m
+[36m@@ -73,7 +73,7 @@[m [mpagination_dir: page[m
+ # Extensions[m
+ ## Plugins: https://hexo.io/plugins/[m
+ ## Themes: https://hexo.io/themes/[m
+[31m-theme: hexo-theme-matery[m
+[32m+[m[32mtheme: freemind[m
+ [m
+ # Deployment[m
+ ## Docs: https://hexo.io/docs/deployment.html[m
+[1mdiff --git a/source/_posts/hello-world.md b/source/_posts/hello-world.md[m
+[1mindex c090297..2df1c11 100644[m
+[1m--- a/source/_posts/hello-world.md[m
+[1m+++ b/source/_posts/hello-world.md[m
+[36m@@ -2,37 +2,25 @@[m
+ title: Hello World[m
+ ---[m
+ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).[m
+[31m-[m
+ ## Quick Start[m
+[31m-[m
+ ### Create a new post[m
+[31m-[m
+ ``` bash[m
+ $ hexo new "My New Post"[m
+ ```[m
+[31m-[m
+ More info: [Writing](https://hexo.io/docs/writing.html)[m
+[31m-[m
+ ### Run server[m
+[31m-[m
+ ``` bash[m
+ $ hexo server[m
+ ```[m
+[31m-[m
+ More info: [Server](https://hexo.io/docs/server.html)[m
+[31m-[m
+ ### Generate static files[m
+[31m-[m
+ ``` bash[m
+ $ hexo generate[m
+ ```[m
+[31m-[m
+ More info: [Generating](https://hexo.io/docs/generating.html)[m
+[31m-[m
+ ### Deploy to remote sites[m
+ [m
+ ``` bash[m
+ $ hexo deploy[m
+ ```[m
+[31m-[m
+[31m-More info: [Deployment](https://hexo.io/docs/deployment.html)[m
+[32m+[m[32mMore info: [Deployment](https://hexo.io/docs/deployment.html)[m
+\ No newline at end of file[m
