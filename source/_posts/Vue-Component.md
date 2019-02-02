@@ -2,7 +2,9 @@
 title: Vue-Component
 date: 2019-02-02 11:14:28
 tags: Vue-Base-Usage
+categories: Vue
 toc: true
+comments: true
 ---
 ### Component
 #### 关于组件命名
@@ -12,7 +14,7 @@ toc: true
 这会帮助你避免和当前以及未来的 HTML 元素相冲突。
 ```
 > 命名不符合规则，会在调用组件时出现问题。
-
+<!-- more -->
 #### Prop
 ##### 单向数据流
 ```
