@@ -1,23 +1,23 @@
 ---
 title: Vue-Component
 date: 2019-02-02 11:14:28
-tags: Vue-Base-Usage
+tags: Vue基本用法
 categories: Vue
 toc: true
 comments: true
 ---
 ### Component
 #### 关于组件命名
-```
+
 当直接在 DOM 中使用一个组件(而不是在字符串模板或单文件组件)的时候，
 我们强烈推荐遵循 W3C 规范中的自定义组件名 (字母全小写且必须包含一个连字符)。
 这会帮助你避免和当前以及未来的 HTML 元素相冲突。
-```
+
 > 命名不符合规则，会在调用组件时出现问题。
 <!-- more -->
 #### Prop
 ##### 单向数据流
-```
+```js
 1.单向下行绑定，父级prop的更新会流动到子组件，反过来不行。
 2.这意味着，在实际开发中，不可以在子组件中修改父组件传入的
 prop的值，prop为只读状态。
@@ -27,7 +27,7 @@ prop的值，prop为只读状态。
     对象类型的prop来说，在子组件中改变将会影响到父组件的状态。
     
 > * 两种参考情况：
-> ```
+> ``` js
 >  1.这个 prop 用来传递一个初始值；这个子组件接下来希望将其
 >  作为一个本地的 prop 数据来使用。在这种情况下，最好定义一
 >  个本地的 data 属性并将这个 prop 用作其初始值：
@@ -40,7 +40,7 @@ prop的值，prop为只读状态。
 >   }
 > ```
 >
->```
+>``` js
 >   2.这个 prop 以一种原始的值传入且需要进行转换。在这种情况下，
 >   最好使用这个 prop 的值来定义一个计算属性：
 >
@@ -64,7 +64,7 @@ prop的值，prop为只读状态。
 
 ##### $attrs
 - 子组件定义：
-```
+```vue
 <template>
     <div>
         props:{{name}},{{age}} 
@@ -79,11 +79,11 @@ export default{
 }
 ```
 - 父组件调用
-```
+```html
 <child name="rick" :age="18" gender="male"></child>
 ```
 - 如果我们给child传props没有注册的属性，就需要使用$attrs来取了
-```
+```vue
 <template>
     <div>
         props:{{name}},{{age}} 
