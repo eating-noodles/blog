@@ -1,8 +1,7 @@
 ---
 title: Vue-Component
 date: 2019-02-02 11:14:28
-tags: Vue基本用法
-categories: Vue
+tags: Vue
 toc: true
 comments: true
 ---
