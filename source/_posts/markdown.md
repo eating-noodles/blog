@@ -1,19 +1,17 @@
 ---
 title: markdown
 date: 2019-02-02 14:22:02
-tags: MarkDown语法
-categories: MarkDown-Usage
+tags: MarkDown-Usage
 toc: true
 ---
 # 目录
-
-<!-- more -->
 
 [TOC]
 
 
 # 一级标题
 ## 二级标题
+<!-- more -->
 ### 三级标题
 #### 四级标题
 ##### 五级标题
