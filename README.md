@@ -1,0 +1,1 @@
+Just write a post in source/_posts,and npm run deploy
