@@ -18,7 +18,8 @@ tags:
 ## 2. entry & output
 ### 2.1 entry
 * 打包入口文件
-*   ``` javascript
+* 示例：
+    ``` javascript
         entry: {
             main: './src/index.js'
         },
@@ -27,7 +28,8 @@ tags:
     * 打包生成的默认文件名称为main.js(可以在output中filename来改变输出文件名称)
 
 ### 2.2 output
-* ``` javascript
+* 示例:
+    ``` javascript
     {
         entry: {
             main: './src/index.js',
