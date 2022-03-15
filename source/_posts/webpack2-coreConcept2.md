@@ -6,6 +6,7 @@ tags:
 # 核心概念篇2
 ## 1. Plugins
 * plugin可以在webpack运行到某个时刻时，帮你做一些事情
+<!-- more -->
 
 ### 1.1. HtmlWebpackPlugin
 * 会在打包结束后，自动生成一个html文件，并把打包生成的js自动引入到这个html文件
@@ -17,10 +18,10 @@ tags:
 ## 2. entry & output
 ### 2.1 entry
 * 打包入口文件
-* ``` javascript
-    entry: {
-        main: './src/index.js'
-    },
+*   ``` javascript
+        entry: {
+            main: './src/index.js'
+        },
     ```
     * 表示要打包入口为'./src/index.js'
     * 打包生成的默认文件名称为main.js(可以在output中filename来改变输出文件名称)
