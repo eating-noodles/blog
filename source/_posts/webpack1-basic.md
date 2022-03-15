@@ -5,6 +5,7 @@ tags:
 ---
 # 基础篇
 ## 1.啥是webapck
+<!-- more -->
 1. 模块打包工具（Modules Bundle），可识别
 * ES Moudule模块的引入(import)导出(export)工具、
 * CmmonJS模块引入规范（NodeJs的导入导出，require、module.exports）、
