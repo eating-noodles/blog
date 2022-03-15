@@ -12,6 +12,7 @@ tags:
     "watch": "webpack --watch"
   },
 ```
+<!-- more -->
 * 代码变化->webpack重新打包->刷新页面，显示结果
 
 2. webpack-dev-server
