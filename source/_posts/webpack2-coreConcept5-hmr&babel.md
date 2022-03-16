@@ -6,6 +6,7 @@ tags:
 # 核心概念篇5
 ## 1. 热模块更新HMR
 * Since webpack-dev-server v4.0.0, Hot Module Replacement is enabled by default.
+<!--more-->
 ``` javascript
 module.exports = {
     mode: 'development',
