@@ -33,6 +33,7 @@ npm init
 
 ## 3.webpack.config.js
 1. 文件配置项(此文件不存在时,会有默认的配置项)
+* 每一个文件的引入都是作为一个module（模块）
 * entry: 打包入口
 * output: 打包的文件的配置
     * filename: 输出文件的名称
