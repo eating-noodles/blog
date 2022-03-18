@@ -8,6 +8,7 @@ tags:
 * 只支持ES Module的引入（import的语法）静态引入
 * webpack.config.js
     * 开发环境:
+    <!-- more -->
     ``` javascript
         {
             optimization: {
