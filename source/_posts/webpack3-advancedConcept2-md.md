@@ -79,7 +79,7 @@ module.exports = {
     * 引入的库如果大于配置20kb, 才会代码分割
     * 设置为0 webpack 5 not working???
 * minChunks: 1
-    * 一个模块在代码中至少被引用了1次，才会被代码分割
+    * 打包生成的chunks(被打包的模块中)中，至少被引用了1次，才会被代码分割
 * maxAsyncRequests： 30
     * 前30个库会进行代码分割，30以后的库就不会进行代码分割了
 * maxInitialRequests: 30
