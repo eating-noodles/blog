@@ -1,10 +1,11 @@
 ---
 title: webpack3-advancedConcept4-caching&shimming&webpack--env
 date: 2022-03-28 21:40:26
-tags:
+tags: webpack
 ---
 # 高级概念篇4
 ## webpack和浏览器缓存（caching）
+<!-- more -->
 * [contenthash]占位符,根据文件内容生成hash,文件内容不变,hash值不变
 ``` javascript
 const prodConfig = {

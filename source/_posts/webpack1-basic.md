@@ -1,7 +1,7 @@
 ---
 title: webpack1-basic
 date: 2022-03-06 17:40:10
-tags:
+tags: webpack
 ---
 # 基础篇
 ## 1.啥是webapck

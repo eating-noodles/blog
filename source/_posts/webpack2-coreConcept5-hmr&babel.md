@@ -1,7 +1,7 @@
 ---
 title: webpack2-coreConcept5-hmr&babel
 date: 2022-03-16 20:53:19
-tags:
+tags: webpack
 ---
 # 核心概念篇5
 ## 1. 热模块更新HMR
