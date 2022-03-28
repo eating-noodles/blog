@@ -1,5 +1,5 @@
 ---
-title: webpack3-advancedConcept4-caching&shimming
+title: webpack3-advancedConcept4-caching&shimming&webpack--env
 date: 2022-03-28 21:40:26
 tags:
 ---
@@ -56,3 +56,21 @@ module.exports = {
 
 * https://webpack.docschina.org/guides/
 
+## 环境变量的使用
+package.json:
+``` javascript
+  "scripts": {
+    "build": "webpack --env production=true --config ./build/webpack.common.js",
+  },
+```
+webpack.common.js:
+``` javascript
+module.exports = (env) => {
+    // note: 这里拿到的env.production的值是字符串"true"
+    if (env && env.production) {
+        return merge(commonConfig, prodConfig)
+    } else {
+        return merge(commonConfig, devConfig)
+    }
+}
+```
