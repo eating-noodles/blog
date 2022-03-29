@@ -7,7 +7,7 @@ tags: webpack, ts
 ## ts
 1. 安装typescript, ts-loader
 2. webpack配置loader使用规则
-<!-- more --->
+<!-- more -->
 ``` javascript
 const path = require('path')
 
