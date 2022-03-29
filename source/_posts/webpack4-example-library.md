@@ -8,6 +8,7 @@ webpack4.X
 
 ## 打包library 
 1. 使打包的library支持ESM,CMD,AMD等的引入方式, webpack增加output.libraryTarget的配置
+<!-- more -->
 ``` javascript
 const path = require('path');
 
