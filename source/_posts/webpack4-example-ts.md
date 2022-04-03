@@ -1,5 +1,5 @@
 ---
-title: webpack4-example-ts&devServer-proxy
+title: webpack4-example-ts&devServer-proxy&eslint
 date: 2022-03-29 22:47:52
 tags: webpack, ts
 ---
@@ -105,3 +105,35 @@ module.exports = {
 * context: 可以设置多个请求代理到同一个地址
 * devMiddleware.index: 设置根路径进行代理
 * 更多设置参考 https://github.com/chimurai/http-proxy-middleware#http-proxy-options
+
+## eslint
+### eslint使用
+<!-- more -->
+1. npm install eslint --save-dev
+2. npx eslint --init 生成eslint配置文件
+3. npx eslint src 命令行检测代码格式问题或者vscode安装eslint插件在ide中格式化
+4. 禁用规则，在.eslintrc.js（eslint配置文件）文件中的rules属性进行配置，设置为0表示禁用某条规则
+5. globals属性可以配置某些全局变量的使用规则，如果代码违反了配置的规则，eslint会进行报错显示
+
+### eslint + webpack(eslint-loader) 
+* 仅供参考，webpack4.x版本
+配置示例：
+``` javascript
+module.exports = {
+  devServer: {
+    overlay: true,
+    ...
+  },
+  ...,
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: ['babel-loader', 'eslint-loader'],
+      },
+    ],
+  },
+};
+```
+* devServer.overlay: 命令行报错时,错误信息会在浏览器弹出
