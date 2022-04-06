@@ -7,6 +7,7 @@ tags: webpack
 
 ## 多页面应用打包
 * 配置多个入口文件
+<!-- more -->
 ``` javascript
 module.exports = {
   ...,
