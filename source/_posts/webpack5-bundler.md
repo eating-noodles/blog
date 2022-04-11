@@ -196,3 +196,223 @@ output:
     'console.log(_message["default"]);'
 }
 ```
+
+## Dependencies Graph(依赖图谱)
+对所有的模块进行分析
+``` javascript
+const makeDependenciesGraph = (entry) => {
+    const entryModule = moduleAnalyser(entry)
+    const graphArr = [entryModule]
+    for (let i = 0; i < graphArr.length; i++) {
+        const item = graphArr[i]
+        const { dependencies } = item
+        if (dependencies) {
+            for (let j in dependencies) {
+                graphArr.push(moduleAnalyser(dependencies[j]))
+            }
+        }
+    }
+
+    // note: 为了后面打包方便，将数组换为对象
+    const graph = {};
+    graphArr.forEach(item => {
+        graph[item.filename] = {
+            dependencies: item.dependencies,
+            code: item.code
+        }
+    })
+    return graph
+}
+const graphInfo = makeDependenciesGraph('./src/index.js')
+console.log(graphInfo)
+```
+output: 
+``` javascript
+{
+  './src/index.js': {
+    dependencies: { './message.js': './src/message.js' },
+    code: '"use strict";\n' +
+      '\n' +
+      'var _message = _interopRequireDefault(require("./message.js"));\n' +
+      '\n' +
+      'function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }\n' +
+      '\n' +
+      'console.log(_message["default"]);'
+  },
+  './src/message.js': {
+    dependencies: { './word.js': './src/word.js' },
+    code: '"use strict";\n' +
+      '\n' +
+      'Object.defineProperty(exports, "__esModule", {\n' +
+      '  value: true\n' +
+      '});\n' +
+      'exports["default"] = void 0;\n' +
+      '\n' +
+      'var _word = require("./word.js");\n' +
+      '\n' +
+      'var message = "say ".concat(_word.word);\n' +
+      'var _default = message;\n' +
+      'exports["default"] = _default;'
+  },
+  './src/word.js': {
+    dependencies: {},
+    code: '"use strict";\n' +
+      '\n' +
+      'Object.defineProperty(exports, "__esModule", {\n' +
+      '  value: true\n' +
+      '});\n' +
+      'exports.word = void 0;\n' +
+      "var word = 'hello';\n" +
+      'exports.word = word;'
+  }
+}
+```
+
+## 生成源码
+1. 建立一个闭包方法，避免污染全局环境（把依赖图谱传递进去）
+``` javascript
+const generateCode = (entry) => {
+    const graph = JSON.stringify(makeDependenciesGraph(entry));
+    // note: 为了不污染环境，使用闭包
+    return `
+        (function(graph){
+
+        })(${graph});
+    `
+}
+```
+2. 依赖图谱的每一项包含自己的依赖，以及自己的源码。但是源码中包含`require`、`exports`这些方法，浏览器没有、是识别不出来，所以直接拿去浏览器命令行是执行不了的。
+3. 构建一个require函数，入参为接收的“模块”。
+``` javascript
+const generateCode = (entry) => {
+    const graph = JSON.stringify(makeDependenciesGraph(entry));
+    return `
+        (function(graph){
+            function require(module) {
+            };
+        })(${graph});
+    `
+}
+```
+4. 以入口文件为参数调用require方法。`注意传参要用引号引起来`
+``` javascript
+const generateCode = (entry) => {
+    const graph = JSON.stringify(makeDependenciesGraph(entry));
+    return `
+        (function(graph){
+            function require(module) {
+            };
+            require('${entry}')
+        })(${graph});
+    `
+}
+```
+5. 拿到入口文件的依赖图谱，要执行其对应的代码。（继续用一个闭包来进行执行，每个模块一个闭包，这样模块的变量不会影响外部变量，避免环境污染）
+``` javascript
+const generateCode = (entry) => {
+    const graph = JSON.stringify(makeDependenciesGraph(entry));
+    // note: 为了不污染环境，使用闭包
+    return `
+        (function(graph){
+            function require(module) {
+
+                (function(code) {
+                    eval(code);
+                })(graph[module].code)
+
+            };
+            require('${entry}')
+        })(${graph});
+    `
+}
+```
+6. 入口文件中的依赖引入是'/message.js', 但是我们的依赖图谱对象中的key存储的是相对于工程根目录的路径，所以需要对其进行转换（依赖图谱中，每个模块的dependencies对象存储了相对路径和绝对路径的映射关系）
+``` javascript
+const generateCode = (entry) => {
+    const graph = JSON.stringify(makeDependenciesGraph(entry));
+    // note: 为了不污染环境，使用闭包
+    return `
+        (function(graph){
+            function require(module) {
+
+                function localRequire(relativePath) {
+                    return require(graph[module].dependencies[relativePath]);
+                }
+                (function(require, code) {
+                    eval(code);
+                })(localRequire, graph[module].code)
+
+            };
+            require('${entry}')
+        })(${graph});
+    `
+}
+```
+7. 代码执行还需要一个exports对象,以便可以导出一些内容
+``` javascript
+const generateCode = (entry) => {
+    const graph = JSON.stringify(makeDependenciesGraph(entry));
+    // note: 为了不污染环境，使用闭包
+    return `
+        (function(graph){
+            function require(module) {
+                function localRequire(relativePath) {
+                    return require(graph[module].dependencies[relativePath]);
+                }
+
+                var exports = {};
+                (function(require, exports, code) {
+                    eval(code);
+                })(localRequire, exports, graph[module].code)
+                return exports;
+
+            };
+            require('${entry}')
+        })(${graph});
+    `
+}
+```
+8. 最终结果
+
+``` javascript
+const generateCode = (entry) => {
+    const graph = JSON.stringify(makeDependenciesGraph(entry));
+    // note: 为了不污染环境，使用闭包
+    return `
+        (function(graph){
+            function require(module) {
+                function localRequire(relativePath) {
+                    return require(graph[module].dependencies[relativePath]);
+                }
+                var exports = {};
+                (function(require, exports, code) {
+                    eval(code);
+                })(localRequire, exports, graph[module].code)
+                return exports;
+            };
+            require('${entry}')
+        })(${graph});
+    `
+}
+
+const code = generateCode('./src/index.js')
+console.log(code)
+```
+output: 
+``` javascript
+        (function(graph){
+            function require(module) {
+                function localRequire(relativePath) {
+                    return require(graph[module].dependencies[relativePath]);
+                }
+                var exports = {};
+                (function(require, exports, code) {
+                    eval(code);
+                })(localRequire, exports, graph[module].code)
+                return exports;
+            };
+            require(./src/index.js)
+        })({"./src/index.js":{"dependencies":{"./message.js":"./src/message.js"},"code":"\"use strict\";\n\nvar _message = _interopRequireDefault(require(\"./message.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { \"default\": obj }; }\n\nconsole.log(_message[\"default\"]);"},"./src/message.js":{"dependencies":{"./word.js":"./src/word.js"},"code":"\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports[\"default\"] = void 0;\n\nvar _word = require(\"./word.js\");\n\nvar message = \"say \".concat(_word.word);\nvar _default = message;\nexports[\"default\"] = _default;"},"./src/word.js":{"dependencies":{},"code":"\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.word = void 0;\nvar word = 'hello';\nexports.word = word;"}});
+```
+
+示例仓库地址：https://github.com/eating-noodles/webpack_memo/tree/main/webpack26-bundler
