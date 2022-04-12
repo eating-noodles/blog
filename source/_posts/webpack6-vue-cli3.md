@@ -4,8 +4,8 @@ date: 2022-04-12 17:58:18
 tags: webpack; vue-cli
 ---
 # vue-cli 3
-<!-- more -->
 * vue-cli对webpack进行了封装，要按照vue-cli暴露的接口来进行配置
+<!-- more -->
 vue.config.js
 ``` javascript
 const path = require('path')
