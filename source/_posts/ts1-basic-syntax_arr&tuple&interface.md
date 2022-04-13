@@ -171,3 +171,7 @@ const say: SayHi = () => 'test';
 ```
 
 
+
+## 其他
+
+代码仓库 [ts1-basic-syntax_arr&tuple&interface](https://github.com/eating-noodles/ts_memo/tree/main/ts1-basic-syntax_arr%26tuple%26interface)
