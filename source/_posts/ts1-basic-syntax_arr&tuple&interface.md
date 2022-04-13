@@ -7,6 +7,8 @@ tags: ts
 
 ## 数组和元组
 ### 数组
+数组用法跟js相差无几
+<!-- more -->
 ``` typescript
 const arr: (number | string)[] = [1, '2', 3];
 
