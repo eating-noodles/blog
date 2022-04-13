@@ -1,5 +1,5 @@
 ---
-title: ts1-basic-syntax1_type
+title: ts2-basic-syntax1_type
 date: 2022-04-12 23:23:47
 tags: ts
 ---

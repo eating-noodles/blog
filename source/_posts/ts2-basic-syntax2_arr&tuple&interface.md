@@ -1,5 +1,5 @@
 ---
-title: ts1-basic-syntax_arr&tuple&interface
+title: ts2-basic-syntax_arr&tuple&interface
 date: 2022-04-13 21:11:34
 tags: ts
 ---
