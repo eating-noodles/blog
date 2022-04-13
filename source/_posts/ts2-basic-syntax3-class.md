@@ -5,7 +5,7 @@ tags: ts
 ---
 # ts - class
 ## 类的基本使用
-
+<!-- more -->
 ### 定义类
 ``` typescript
 class Person {
