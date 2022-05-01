@@ -103,3 +103,69 @@ class Teacher extends Person {
 }
 ```
 子类的`constructor`中必须手动调用父类的`constructor`(super())。
+
+## Getter & Setter
+
+* 对于私有属性，类外是无法直接进行赋值或者读取的。可以通过getter、setter访问器属性对其进行访问设置。
+* 通过getter/setter进行读取/设置私有属性的之前，可以进行拦截来做一些逻辑操作。
+
+``` javascript
+class Person {
+  constructor(private _name: string) { }
+
+  get name() {
+    // note: 可以对私有属性进行一些处理，再进行返回
+    return this._name + 'eating';
+  }
+
+  set name(name: string) {
+    const realName = name.split(' ')[0];
+    this._name = realName;
+  }
+}
+
+const person = new Person('noodles')
+// note: 这里获取不到_name属性，因为这个属性是私有的
+// person._name;
+// note: 这里可以获取到person的name，访问器属性
+person.name;
+
+
+// note: 同理，无法直接对_name进行赋值，因为是私有的
+// person._name = 'dell';
+// note: 所以我们可以通过setter对person进行属性设置
+person.name = 'noodles eating'
+console.log(person.name)
+```
+
+## 静态属性
+
+* static：表示把这个属性或者方法挂载到类上面，而不是类的实例上面。访问时，使用`类名.方法名`或者`类名.属性名`
+
+## 实现一个单例模式
+
+```javascript
+// note: 单例模式，只想Demo有一个实例
+class Demo {
+  // 静态 私有变量
+  private static instance: Demo;
+  // note: 构造方法设置为私有，以为这外部无法访问，也就无法使用new来创建新对象
+  private constructor(public name: string) { }
+  
+  static getInstance() { 
+    if (!this.instance) {
+      this.instance = new Demo('noodles')
+    }
+
+    return this.instance
+  }
+  
+}
+
+const demo1 = Demo.getInstance()
+const demo2 = Demo.getInstance()
+
+console.log(demo1.name)
+console.log(demo2.name)
+```
+
